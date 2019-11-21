@@ -1,4 +1,4 @@
-# Adversarial Attacks on Graph Neural Networks via Meta Learning
+# Robust Semi-supervised Graph Neural Network via Unlabeled Node Ranking
 
 Implementation of the paper：
 
