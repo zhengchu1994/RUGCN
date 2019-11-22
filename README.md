@@ -19,4 +19,13 @@ Implementation of the paper：
 
 ## Run the code
 
- To try our code,  `python `
+ To try  `python rugcn.py`
+
+ 
+
+## References
+
+*  Thomas N Kipf and Max Welling. 2017.
+  *Semi-supervised classification with graph convolutional networks.* ICLR (2017). 
+
+* Shchur, O., Mumme, M., Bojchevski, A., G{\"{u}}nnemann, S.: Pitfalls of graph neural network evaluation.
