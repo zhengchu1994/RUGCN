@@ -29,3 +29,7 @@ Implementation of the paper：
   *Semi-supervised classification with graph convolutional networks.* ICLR (2017). 
 
 * Shchur, O., Mumme, M., Bojchevski, A., G{\"{u}}nnemann, S.: Pitfalls of graph neural network evaluation.
+
+## Contact 
+
+ Contact me here: zhengchu1994@gmail.com
