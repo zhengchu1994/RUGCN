@@ -42,33 +42,28 @@ class GaussLayer(nn.Module):
 
     def Wloss(self, edges):
         WD = Wasserstein(self.mu, self.sigma, edges[:, 0], edges[:, 1])
-        filter_WD = WD[WD > 0.00001]
-        if len(filter_WD) > 0:
-            return torch.mean(filter_WD)
-        else:
-            print("------------------0----------------")
-            return 0
+        return torch.mean(WD)
 
 
-    def KLloss(self, edges):
+    def KLloss(self, edges, probs):
         KL = KLDivergence(self.mu, self.sigma, edges[:, 0], edges[:, 1])
         # KL = torch.exp(KL)
-        filter_KL = KL[KL > 0.00001]
-        if len(filter_KL) > 0:
-            # print("----------", len(filter_KL), "----------")
-            return torch.mean(filter_KL)
-        else:
-            print("------------------0----------------")
-            return 0
+        return torch.mean(KL * probs)
 
     def closs(self, mask_x, mask_y):
         return F.nll_loss(self.logits[mask_x], mask_y)
 
+    def build_loss2(self, edges, probs, mask_x, mask_y):
+        return self.alpha * self.KLloss(edges, probs) + self.closs(mask_x, mask_y)
+
+    def KLloss_old(self, edges):
+        KL = KLDivergence(self.mu, self.sigma, edges[:, 0], edges[:, 1])
+        # KL = torch.exp(KL)
+        return torch.mean(KL)
+
+
     def build_loss(self, edges, mask_x, mask_y):
-        return self.alpha * self.KLloss(edges) + self.closs(mask_x, mask_y)
-
-
-
+        return self.alpha * self.KLloss_old(edges) + self.closs(mask_x, mask_y)
 
 
 
