@@ -236,6 +236,14 @@ def load_data(dataset_str, RandomState, mode, standardize=False, train_num_per_c
     :return: All data input files loaded (as well the training/test data).
     """
     if mode == 'split':
+        """
+        1、先标准化图，即构造最大连通分量，去掉孤立节点
+        2、去掉自环
+        3、返回1、2步处理后得到的图的邻接矩阵adj，特征features，对应节点的标签labels
+
+        4、特征与标签进行特殊处理；
+        5、采样训练节点、验证节点和测试节点；
+        """
         print("Randomly split dataset...")
         dataset_str += '.npz'
         dataset_graph = load_npz_to_sparse_graph(dataset_str)
@@ -277,7 +285,7 @@ def load_data(dataset_str, RandomState, mode, standardize=False, train_num_per_c
             else:
                 objects.append(pkl.load(f))
 
-    # x.shape:(140, 1433); y.shape:(140, 7);tx.shape:(1000, 1433);ty.shape:(1708, 1433);
+    # x.shape:(140, 1433); y.shape:(140, 7); tx.shape:(1000, 1433);ty.shape:(1708, 1433);
     # allx.shape:(1708, 1433);ally.shape:(1708, 7)
     x, y, tx, ty, allx, ally, graph = tuple(objects)
     test_idx_reorder = parse_index_file("data/ind.{}.test.index".format(dataset_str))
